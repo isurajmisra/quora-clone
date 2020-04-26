@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block content %} {% for question in ques_obj%}
+<div class="post">
+    <div class="date">
+        {{ question.created_on }}
+    </div>
+    <div style="display:flex">
+        {% for topic in question.topics.all %}
+        <a href="{% url 'tagged' topic.slug %}" class="mr-1 badge badge-info">{{ topic }}</a> {% endfor %}
+    </div>
+    <h2><a href="{% url 'question-details' pk=question.pk %}">{{ question.title }}</a></h2>
+
+
+
+    {% for answer in question.answers.all %}
+
+    <p>{{answer.answer_text}}</p>
+    <div class="date">
+        {{ question.posted_on }}
+    </div>{% if user.is_authenticated %}
+    <div style="display:flex">
+        <a href="{% url 'upvote' pk=answer.pk %}">Upvote</a>
+        <p>{{answer.upvotes.count}}</p>
+    </div>
+    {%endif%} {%endfor%}
+    <div><button class="comment-btn"> <a href="{% url 'add-answer' pk=question.pk %}">Answer</a> </button></div>
+</div>
+{%endfor%} {%endblock%}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block content %}
+<div class="post">
+    <h2>Common Topics</h2>
+    <br> {%for topic in common_topics%}
+    <a href="{% url 'tagged' topic.slug %}" class="mr-1 badge badge-info">{{topic}}</a> {%endfor%}
+</div>
+{% for question in ques_obj%}
+<div class="post">
+    <div class="date">
+        {{ question.created_on }}
+    </div>
+    <div style="display:flex">
+        {% for topic in question.topics.all %}
+        <a href="{% url 'tagged' topic.slug %}" class="mr-1 badge badge-info">{{ topic }}</a> {% endfor %}
+    </div>
+    <h2><a href="{% url 'question-details' pk=question.pk %}">{{ question.title }}</a></h2>
+</div>
+{%endfor%} {%endblock%}

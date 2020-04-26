@@ -1,0 +1,43 @@
+{% extends 'base.html' %} {% block content %}
+<div>
+    <div style="display:flex">
+        {% for topic in question.topics.all %}
+        <a href="{% url 'tagged' topic.slug %}" class="mr-1 badge badge-info">{{ topic }}</a> {% endfor %}
+    </div>
+    <div class="date">
+        {{ question.created_on }}
+    </div>
+
+    <h2>{{ question.title }}</h2>
+
+</div>
+{% for answer in question.answers.all %}
+<div>
+
+    <p>{{answer.answer_text}}</p>
+
+    <div class="date">
+        {{ question.posted_on }}
+    </div>{% if user.is_authenticated %}
+    <div style="display:flex">
+        <a href="{% url 'upvote' pk=answer.pk %}">Upvote</a>
+        <p>{{answer.upvotes.count}}</p>
+        {% if answer.user == user %}
+        <a class="btn btn-default" href="{%url 'answer-edit' qk=question.pk ak=answer.pk %}"><span class="glyphicon glyphicon-pencil"></span></a> {% endif %}
+    </div>
+    {%endif%}
+</div>
+<input id="pk" type="hidden" value={{question.pk}}> {%endfor%}
+
+<div><button class="comment-btn"> Answer </button>
+    <div class="form-div" style='display:none'>
+        <form class="post-form">{% csrf_token %} {{ form.as_p }}
+            <button id="save" type="submit" class="save btn btn-default">Save</button>
+        </form>
+
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

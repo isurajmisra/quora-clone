@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% block content %}
+<!-- <form action="" method="POST">
+    {% csrf_token %}
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Email</label>
+        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+      </div>
+    
+      <div class="form-group col-md-2">
+        <label for="inputZip">Zip</label>
+        <input type="text" class="form-control" id="inputZip">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="gridCheck">
+        <label class="form-check-label" for="gridCheck">
+          Check me out
+        </label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign in</button>
+  </form> -->
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <table class="table">
+        {{ form.as_table }}
+        <tr>
+            <td><input type="hidden" name="next" value="{{ next }}"></td>
+            <td><button type="submit" class="btn btn-primary">Submit</button></td>
+        </tr>
+    </table>
+    <!-- <input type="submit" name="register" value="Register" /> -->
+</form>
+
+{% endblock %}
